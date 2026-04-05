@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glitter & Glam Nails - Book Your Dream Manicure!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Pink gradient background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #ff6b9d, #c44569);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #ff6b9d;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: linear-gradient(45deg, #ff6b9d, #c44569);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+
+        .hero-content h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero-content p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #ff6b9d, #c44569);
+            color: white;
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(255, 107, 157, 0.4);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 107, 157, 0.6);
+        }
+
+        /* Gallery Section */
+        .gallery {
+            padding: 100px 0;
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .section-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            background: linear-gradient(45deg, #ff6b9d, #c44569);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.2);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            color: white;
+            padding: 2rem 1.5rem 1.5rem;
+            transform: translateY(100%);
+            transition: transform 0.3s;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+
+        .gallery-item h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 100px 0;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 3rem;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #ff6b9d;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ffeef2;
+            border-radius: 15px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #ff6b9d;
+        }
+
+        textarea {
+            height: 120px;
+            resize: vertical;
+        }
+
+        /* WhatsApp Button */
+        .whatsapp-btn {
+            display: inline-block;
+            background: #25D366;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-top: 1rem;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4);
+        }
+
+        .whatsapp-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(37, 211, 102, 0.6);
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 2rem 0;
+            text-align: center;
+            border-top: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #ff6b9d, #c44569);
+            color: white;
+            text-decoration: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s;
+        }
+
+        .social-links a:hover {
+            transform: translateY(-5px) scale(1.1);
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-form {
+                padding: 2rem;
+                margin: 0 10px;
+            }
+        }
+
+        /* Floating animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .float {
+            animation: float 6s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="container">
+            <div class="logo">✨ Glitter & Glam Nails ✨</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#contact">Book Now</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>💅 Your Dream Nails Await! 💖</h1>
+                <p>Transform your nails into works of art with our stunning designs, premium products, and personalized service. Book your appointment today!</p>
+                <a href="#contact" class="cta-button">Book Appointment <i class="fas fa-spa"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="gallery">
+        <div class="container">
+            <h2 class="section-title">Our Stunning Creations 💖</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item float">
+                    <img src="https://images.unsplash.com/photo-1573062396802-ef5a969e7f72?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="French Manicure">
+                    <div class="gallery-overlay">
+                        <h3>French Elegance</h3>
+                        <p>Classic with a modern twist</p>
+                    </div>
+                </div>
+                <div class="gallery-item float">
+                    <img src="https://images.unsplash.com/photo-1606313569625-b7f7bd7c16f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Glitter Nails">
+                    <div class="gallery-overlay">
+                        <h3>Glitter Glam</h3>
+                        <p>Sparkle like never before</p>
+                    </div>
+                </div>
+                <div class="gallery-item float">
+                    <img src="https://images.unsplash.com/photo-1617175937202-0c8469557b5c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Floral Design">
+                    <div class="gallery-overlay">
+                        <h3>Floral Fantasy</h3>
+                        <p>Delicate and beautiful</p>
+                    </div>
+                </div>
+                <div class="gallery-item float">
+                    <img src="https://images.unsplash.com/photo-1600384823635-07a771a7c5b0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Ombre Nails">
+                    <div class="gallery-overlay">
+                        <h3>Ombre Magic</h3>
+                        <p>Beautiful gradient perfection</p>
+                    </div>
+                </div>
+                <div class="gallery-item float">
+                    <img src="https://images.unsplash.com/photo-1605274398010-9d5a189ef257?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="3D Nails">
+                    <div class="gallery-overlay">
+                        <h3>3D Artistry</h3>
+                        <p>Next-level nail art</p>
+                    </div>
+                </div>
+                <div class="gallery-item float">
+                    <img src="https://images.unsplash.com/photo-1607663783438-6f8f4135f8b5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Matte Nails">
+                    <div class="gallery-overlay">
+                        <h3>Matte Sophistication</h3>
+                        <p>Chic and modern</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Ready for Your Glow-Up? 💅</h2>
+            <div class="contact-form">
+                <form id="appointmentForm">
+                    <div class="form-group">
+                        <label for="name">Your Name 💖</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number 📱</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email (Optional) ✉️</label>
+                        <input type="email" id="email" name="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="service">Service Interested In 💅</label>
+                        <input type="text" id="service" name="service" placeholder="e.g., French manicure, glitter nails...">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Special Requests 💭</label>
+                        <textarea id="message" name="message" placeholder="Tell us about your dream nails!"></textarea>
+                    </div>
+                    <a href="https://wa.me/1234567890?text=Hi!%20I'm%20interested%20in%20booking%20a%20nail%20appointment.%20My%20name%20is%20{{name}}&phone={{phone}}" 
+                       id="whatsappLink" class="whatsapp-btn" target="_blank">
+                        <i class="fab fa-whatsapp"></i> Book via WhatsApp
+                    </a>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Glitter & Glam Nails. Making every nail a masterpiece! ✨💅</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-tiktok"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Populate WhatsApp message with form data
+        const form = document.getElementById('appointmentForm');
+        const whatsappLink = document.getElementById('whatsappLink');
+
+        form.addEventListener('input', function() {
+            const formData = new FormData(form);
+            let message = 'Hi! I want to book a nail appointment! 💅\n\n';
+            message += `Name: ${formData.get('name') || 'Not provided'}\n`;
+            message += `Phone: ${formData.get('phone') || 'Not provided'}\n`;
+            message += `Service: ${formData.get('service') || 'Not specified'}\n`;
+            message += `Message: ${formData.get('message') || 'No special requests'}`;
+
+            const phoneNumber = '1234567890'; // Replace with your WhatsApp number
+            whatsappLink.href = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+        });
+
+        // Gallery lightbox effect (simple hover animation already included)
+        document.querySelectorAll('.gallery-item').forEach(item => {
+            item.addEventListener('click', function() {
+                alert('Gorgeous nails! Contact us to get this look! 💖
